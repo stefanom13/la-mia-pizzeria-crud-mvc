@@ -2,21 +2,41 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model List<Ingredienti>
 
+    <title>@ViewData["Title"] - Experis Pizza</title>
 
-
-    <title>@ViewData["Title"] - la_mia_pizzeria</title>
-
-  
+  @{
         <div class="jumbo">
             <nav class="d-flex justify-content-end">    
                     <div class="">
                          <a class=" text-dark" asp-area="" asp-controller="Pizza" asp-action="Index">Guarda le nostre Pizze</a>
                     </div>
              </nav>
+      
+                @if (Model == null) 
+            {
+                // se non c'è nessun elemento
+                    <div class="col-12">
+                       <p class="text-center">Nessuna Ingrediente  da visualizzare!</p>
+                    </div>
+            }
+            else
+            {
+                  @foreach(Ingredienti pizzaIngredienti in Model)
+              {
+                      <div class="col-auto">
+                                    <div class="card" style="width: 18rem; padding: 0;">
+                                        <div class="card-body text-black">
+                                            <h5 class="card-title">@pizzaIngredienti.NomeIngrediente</h5>
+                                        </div> 
+                                    </div>
+                      </div>
+              } 
+            }        
+        </div> 
+    }         
 
-             <h2>I nostri ingredienti</h2>
-
-        </div>
+      
   
 

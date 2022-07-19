@@ -6,7 +6,7 @@ using System.Linq;
 
 
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+
 
 namespace la_mia_pizzeria_model.Controllers
 {
@@ -24,7 +24,7 @@ namespace la_mia_pizzeria_model.Controllers
                 {
                     return NotFound("Mi Dispiace, non ci sono Ingredienti");
                 }
-                return View(Index);
+                return View(PizzaIngredienti);
             }
                 
         }
