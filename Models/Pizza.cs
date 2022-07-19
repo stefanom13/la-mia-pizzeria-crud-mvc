@@ -22,10 +22,12 @@ public class Pizza
     public string Descrizione { get; set; }
     public string PathImage { get; set; }
     public float Prezzo { get; set; }
-   // public string CategoryID { get; set; }
 
     public List<Ingredienti>? PizzaIngredienti { get; set; }
-    public List<Categoria> Categorie { get; set; }
+
+    public int? CategoriaId { get; set; }
+
+    public Categoria?  Categorie { get; set; }
     public Pizza(string nomePizza, string descrizione, string pathImage, float prezzo)
     {
 
