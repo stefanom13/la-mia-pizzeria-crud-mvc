@@ -35,6 +35,10 @@ else
                         <li class="list-group-item">@pizza.Prezzo.ToString("C2")</li>
                        <button><a class="btn btn-success" href="@Url.Action("Details","Pizza",new { id = @pizza.Id})">Visualizza</a></button> 
                        <button><a class="btn btn-warning" href="@Url.Action("Edit","Pizza",new { id = @pizza.Id})">Modifica</a></button> 
+                     <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger mt-2">Elimina</button>
+                    </form>
                     </ul>
                 </div>
             
