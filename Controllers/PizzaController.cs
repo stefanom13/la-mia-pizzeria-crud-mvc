@@ -90,25 +90,53 @@ namespace la_mia_pizzeria_model.Controllers
             }
         }
 
-        // GET: HomeController1/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: HomeController1/Edit/5
+        //POST:HomeController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Pizza pizza)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View("Edit", pizza);
             }
-            catch
+            using (PizzaContext db = new PizzaContext())
             {
-                return View();
+                Pizza pizzaEdit = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+                if (pizzaEdit != null)
+                {
+                    pizzaEdit.NomePizza = pizza.NomePizza;
+                    pizzaEdit.Descrizione = pizza.Descrizione;
+                    pizzaEdit.PathImage = pizza.PathImage;
+                    pizzaEdit.Prezzo = pizza.Prezzo;
+
+                    db.SaveChanges();
+                }
+                else
+                {
+                    return NotFound(View("Error"));
+                }
             }
+            return RedirectToAction("Index");
+        }
+
+        // GET: HomeController1/Edit/5
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            using (PizzaContext db = new PizzaContext())
+            {
+                Pizza pizzaEdit = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+                if (pizzaEdit == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(pizzaEdit);
+                }
+            }
+            return View();
         }
 
         // GET: HomeController1/Delete/5
