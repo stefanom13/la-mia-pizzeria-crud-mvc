@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - la_mia_pizzeria</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @*<link rel="stylesheet" href="~/la_mia_pizzeria_static.styles.css" asp-append-version="true" />*@
+</head>
+<body>
+    <header>
+        <div class="jumbo">
+            <nav class="d-flex justify-content-end"> 
+                <ul>
+                     <li class="nav-item">
+                         <button>
+                            Chiama e Prenota
+                         </button>
+                     </li>      
+                    <li class="nav-item">
+                         <a class=" text-dark" asp-area="" asp-controller="Pizza" asp-action="Index">Guarda le nostre Pizze</a>
+                    </li>
+                </ul>
+        </nav>
+        </div>
+    </header>
+
+    <footer class="bg-dark bg-gradient d-flex justify-content-center gx-5 text-white p-3">
+        <div class="left-foot d-flex flex-column align-items-center">
+            <h3>Info:</h3>
+            <p>Orario di apertura: 10:00/14:00 - 18:00/24:00</p>
+            <p>Giorni di apertura: Lun - Sab | Riposo settimanale: Domenica</p>
+            <p>Contattaci: 345 2547874</p>
+            <p>Come trovarci: <a href="">Maps</a> </p>
+        </div>
+      
+    </footer>
+</body>
+</html>
+

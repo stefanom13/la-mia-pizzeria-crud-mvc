@@ -1,0 +1,53 @@
+﻿
+@model List<Pizza>
+
+
+
+
+<div class="text-center">
+    <h1>Benvenuti nel controller pizza</h1>
+      <button class="">
+           <a class=" text-dark" asp-area="" asp-controller="Ingredienti" asp-action="Index">Guarda tutti i nostri Ingredienti</a>
+     </button>
+    
+     <div>
+        <a class="btn" href="@Url.Action("Create","Pizza")">Crea Pizza</a>
+    </div>
+</div>
+
+@{
+    @if (Model == null) 
+    {
+        // se non c'è nessun elemento
+    <div class="col-12">
+       <p class="text-center">Nessuna pizza da visualizzare!</p>
+    </div>
+    }
+else
+    {
+     @foreach(Pizza pizza in Model)
+    {
+        <div class="col-auto">
+
+                <div class="card" style="width: 18rem; padding: 0;">
+                    <img src="@pizza.PathImage" class="card-img-top card-img" style="min-height: 200px; max-height: 200px; object-fit: cover; object-fit: center;" alt="">
+                    <div class="card-body text-black">
+                        <h5 class="card-title">@pizza.NomePizza</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">@pizza.Prezzo.ToString("C2")</li>
+                       <button><a class="btn btn-success" href="@Url.Action("Details","Pizza",new { id = @pizza.Id})">Visualizza</a></button> 
+                    </ul>
+                </div>
+            
+        </div>
+    } 
+    }
+}
+
+
+ 
+
+
+
+

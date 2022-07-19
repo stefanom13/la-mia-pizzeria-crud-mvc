@@ -1,0 +1,37 @@
+﻿
+@model Pizza
+
+
+<div class="container text-dark">
+    <h2>@Model.NomePizza</h2>
+    <div class="row">
+        <div class="w-50">
+            <img class="w-100" src="@Model.PathImage"/>
+        </div>
+        <div class="w-50">
+            <h3>Descrizione</h3>
+            <p>@Model.Descrizione</p>
+            <h3>Prezzo</h3>
+            <span>@Model.Prezzo &euro;</span>
+            
+         </div>
+    <a  class="btn btn-danger mt-2 " href="@Url.Action("Index","Pizza")">Indietro</a>
+</div>
+
+Footer
+© 2022 
+
+       @* <h3>Ingredienti</h3>
+            //@if(Model.IngredienteList.Count() > 0)
+           // {
+               // foreach(Ingrediente ing in Model.IngredienteList)
+                //{                
+                  //  <span> @ing.Name</span>
+              //  }
+           // }
+           // else
+           // {
+               // <span>-</span>
+           /// }
+       *@
+           
