@@ -11,6 +11,7 @@ namespace la_mia_pizzeria_model.Database
 
         public DbSet<Pizza> Pizzas { get; set; }
         public DbSet<Ingredienti> Ingrediente { get; set; }
+        public DbSet<Categoria> Categorie { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
