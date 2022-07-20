@@ -30,7 +30,16 @@ else
                     <img src="@pizza.PathImage" class="card-img-top card-img" style="min-height: 200px; max-height: 200px; object-fit: cover; object-fit: center;" alt="">
                     <div class="card-body text-black">
                         <h5 class="card-title">@pizza.NomePizza</h5>
-                    </div>
+                     </div>
+                       @*parte categorie*@
+                     @if (@pizza.Categorie != null)
+                    {
+                       <h4 class="align-middle">@pizza.Categorie.NomeCategoria</h4>
+                    }
+                    else
+                    {
+                        <h4 class="align-middle">Nessuna Categoria presente</h4>
+                    }
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">@pizza.Prezzo.ToString("C2")</li>
                        <button><a class="btn btn-success" href="@Url.Action("Details","Pizza",new { id = @pizza.Id})">Visualizza</a></button> 

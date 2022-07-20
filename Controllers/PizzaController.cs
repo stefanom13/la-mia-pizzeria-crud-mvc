@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using la_mia_pizzeria_model.Database;
 using la_mia_pizzeria_model.Models;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace la_mia_pizzeria_model.Controllers
 {
@@ -13,21 +14,29 @@ namespace la_mia_pizzeria_model.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View("Create");
+            using (PizzaContext db = new PizzaContext())
+            {
+                List<Categoria> categoria = db.Categorie.ToList();
+                CategoriePizze model = new CategoriePizze();
+
+                model.Categorie = categoria;
+                model.Pizza = new Pizza();
+                return View(model);
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Pizza listPizza)
+        public IActionResult Create(CategoriePizze p)
         {
-            // using (PizzaContext db = new PizzaContext())
-            //{
-            if (!ModelState.IsValid)
-            {
-                return View("Create", listPizza);
-            }
             using (PizzaContext db = new PizzaContext())
             {
-                db.Pizzas.Add(listPizza);
+                if (!ModelState.IsValid)
+            {
+                p.Categorie = db.Categorie.ToList();
+                return View("Create", p);
+            }
+            
+                db.Pizzas.Add(p.Pizza);
                 db.SaveChanges();
 
             }
@@ -43,12 +52,13 @@ namespace la_mia_pizzeria_model.Controllers
 
             using (PizzaContext db = new PizzaContext())
             {
-                List<Pizza> listPizza = db.Pizzas.OrderBy(pizza => pizza.Id).ToList<Pizza>();
+                IQueryable<Pizza> listPizza = db.Pizzas.Include(piz => piz.Categorie);
+               // List<Pizza> listPizza = db.Pizzas.OrderBy(pizza => pizza.Id).ToList<Pizza>();
                 if (listPizza == null)
                 {
                     return NotFound("Pizze non presenti");
                 }
-                return View(listPizza);
+                return View("Index", listPizza.ToList());
             }
         }
 
@@ -147,4 +157,6 @@ namespace la_mia_pizzeria_model.Controllers
             }
         }
     }
+
+   
 }

@@ -11,21 +11,13 @@ using la_mia_pizzeria_model.Database;
 
 
 
-public class Categoria
+public class IngredientiPizza
 {
-    [Key]
-    public int Id { get; set; }
-    public string NomeCategoria { get; set; }
+   
+    public Pizza Pizza { get; set; }
+     public List<Ingredienti> Ingredienti { get; set; }
+   
 
-    
-    public List<Pizza> Pizza { get; set; }
-    public Categoria()
-    {
-
- 
-    }
 }
-
-
 
 
