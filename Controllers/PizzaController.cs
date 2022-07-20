@@ -68,7 +68,8 @@ namespace la_mia_pizzeria_model.Controllers
         {
             using (PizzaContext db = new PizzaContext())
             {
-                Pizza pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+                //Pizza pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza pizza = db.Pizzas.Where(pizza => pizza.Id == id).Include(cat => cat.Categorie).FirstOrDefault();
 
                 if (pizza == null)
                 {
@@ -76,7 +77,6 @@ namespace la_mia_pizzeria_model.Controllers
                 }
                 else
                 {
-                    //db.Entry(pizza).Collection("IngredienteList").Load();
                     return View("Details", pizza);
                 }
             }
