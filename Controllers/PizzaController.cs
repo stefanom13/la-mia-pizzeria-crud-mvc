@@ -85,29 +85,33 @@ namespace la_mia_pizzeria_model.Controllers
         //POST:HomeController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Pizza pizza)
+        public ActionResult Edit(int id, CategoriePizze p)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Edit", pizza);
-            }
             using (PizzaContext db = new PizzaContext())
             {
-                Pizza pizzaEdit = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
-
-                if (pizzaEdit != null)
+                    if (!ModelState.IsValid)
                 {
-                    pizzaEdit.NomePizza = pizza.NomePizza;
-                    pizzaEdit.Descrizione = pizza.Descrizione;
-                    pizzaEdit.PathImage = pizza.PathImage;
-                    pizzaEdit.Prezzo = pizza.Prezzo;
+                    p.Categorie = db.Categorie.ToList();
+                    return View("Edit", p);
+                }
+
+                    Pizza pizzaEdit = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+                
+                if (pizzaEdit != null)
+                    {
+                        pizzaEdit.NomePizza = p.Pizza.NomePizza;
+                        pizzaEdit.Descrizione = p.Pizza.Descrizione;
+                        pizzaEdit.PathImage = p.Pizza.PathImage;
+                        pizzaEdit.Prezzo = p.Pizza.Prezzo;
+                        pizzaEdit.CategoriaId = p.Pizza.CategoriaId;
 
                     db.SaveChanges();
-                }
-                else
-                {
-                    return NotFound(View("Error"));
-                }
+                    }
+                    else
+                    {
+                        return NotFound(View("Error"));
+                    }
             }
             return RedirectToAction("Index");
         }
@@ -125,10 +129,14 @@ namespace la_mia_pizzeria_model.Controllers
                 }
                 else
                 {
-                    return View(pizzaEdit);
+                    CategoriePizze model = new CategoriePizze();
+
+                    model.Pizza = pizzaEdit;
+                    model.Categorie = db.Categorie.ToList();
+
+                    return View(model);
                 }
-            }
-            return View();
+            }   
         }
 
         // GET: HomeController1/Delete/5
